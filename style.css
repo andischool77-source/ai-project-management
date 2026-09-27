@@ -1,0 +1,674 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #718096;
+    --border: #e5e9f2;
+    --primary: #4f46e5;
+    --primary-dark: #3730a3;
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+}
+
+body.dark {
+    --bg: #10141d;
+    --card: #181e29;
+    --text: #f3f4f6;
+    --muted: #9ca3af;
+    --border: #2b3443;
+    --shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.topbar {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 22px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar h1 {
+    font-size: 23px;
+    margin-bottom: 5px;
+}
+
+.topbar p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.icon-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 13px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.navigation {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 5px;
+    padding: 10px 5%;
+    overflow-x: auto;
+}
+
+.nav-btn {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--primary);
+}
+
+main {
+    width: 90%;
+    max-width: 1400px;
+    margin: 30px auto;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.page-title h2 {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.page-title p {
+    color: var(--muted);
+}
+
+button {
+    font-family: inherit;
+}
+
+.primary-btn,
+.secondary-btn,
+.text-btn {
+    border: 0;
+    border-radius: 9px;
+    padding: 11px 16px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.primary-btn:hover {
+    background: var(--primary-dark);
+}
+
+.secondary-btn {
+    background: var(--border);
+    color: var(--text);
+}
+
+.text-btn {
+    padding: 5px;
+    background: transparent;
+    color: var(--primary);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-card,
+.finance-card,
+.report-card,
+.project-card,
+.panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-radius: 14px;
+}
+
+.stat-card {
+    padding: 20px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.stat-card > span {
+    font-size: 25px;
+}
+
+.stat-card small,
+.finance-card small,
+.report-card small {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.stat-card strong {
+    font-size: 21px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.panel {
+    padding: 20px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.panel-header h3 {
+    font-size: 17px;
+}
+
+.list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.list-item {
+    padding: 13px;
+    background: var(--bg);
+    border-radius: 9px;
+    border: 1px solid var(--border);
+}
+
+.list-item strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.list-item small {
+    color: var(--muted);
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 9px;
+    padding: 12px;
+    outline: none;
+    font-family: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.toolbar input {
+    max-width: 500px;
+}
+
+.toolbar select {
+    max-width: 220px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.project-card {
+    padding: 20px;
+}
+
+.project-card h3 {
+    margin-bottom: 9px;
+}
+
+.project-card p {
+    color: var(--muted);
+    font-size: 14px;
+    min-height: 40px;
+    line-height: 1.5;
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 14px 0;
+}
+
+.badge {
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+}
+
+.badge.success {
+    color: var(--success);
+}
+
+.badge.warning {
+    color: var(--warning);
+}
+
+.badge.danger {
+    color: var(--danger);
+}
+
+.progress {
+    height: 8px;
+    background: var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 20px;
+}
+
+.card-actions {
+    display: flex;
+    gap: 7px;
+    margin-top: 15px;
+}
+
+.small-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    padding: 7px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.small-btn.delete {
+    color: var(--danger);
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-row {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 17px;
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 15px;
+    align-items: center;
+}
+
+.task-row h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.task-row small {
+    color: var(--muted);
+}
+
+.task-row .actions {
+    display: flex;
+    gap: 5px;
+}
+
+.finance-summary,
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.finance-card,
+.report-card {
+    padding: 22px;
+}
+
+.finance-card strong,
+.report-card strong {
+    font-size: 25px;
+}
+
+.report-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.report-card span {
+    font-size: 25px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.progress-report {
+    margin-bottom: 20px;
+}
+
+.progress-report-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.expense-row {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.expense-row:last-child {
+    border-bottom: 0;
+}
+
+.expense-row strong {
+    display: block;
+}
+
+.expense-row small {
+    color: var(--muted);
+}
+
+.ai-box {
+    max-width: 900px;
+    margin: auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.ai-messages {
+    min-height: 350px;
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+    background: var(--bg);
+    border-radius: 12px;
+}
+
+.ai-message,
+.user-message {
+    max-width: 85%;
+    padding: 13px 15px;
+    border-radius: 12px;
+    line-height: 1.5;
+}
+
+.ai-message {
+    align-self: flex-start;
+    background: var(--card);
+    border: 1px solid var(--border);
+}
+
+.user-message {
+    align-self: flex-end;
+    background: var(--primary);
+    color: white;
+}
+
+.ai-message strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.ai-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 15px 0;
+}
+
+.ai-suggestions button {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 8px 11px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.ai-input {
+    display: flex;
+    gap: 8px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--card);
+    color: var(--text);
+    border-radius: 15px;
+    padding: 23px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.25);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.modal-content label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 30px 15px;
+}
+
+.member-card {
+    padding: 20px;
+}
+
+.member-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(79,70,229,.12);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.member-card h3 {
+    margin-bottom: 5px;
+}
+
+.member-card p,
+.member-card small {
+    color: var(--muted);
+}
+
+@media (max-width: 1100px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .dashboard-grid,
+    .finance-summary,
+    .report-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .task-row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .topbar {
+        padding: 18px 5%;
+    }
+
+    .topbar h1 {
+        font-size: 18px;
+    }
+
+    main {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+    .page-title {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stats-grid,
+    .dashboard-grid,
+    .cards-grid,
+    .finance-summary,
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar {
+        flex-direction: column;
+    }
+
+    .toolbar input,
+    .toolbar select {
+        max-width: none;
+    }
+
+    .task-row {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-input {
+        flex-direction: column;
+    }
+}

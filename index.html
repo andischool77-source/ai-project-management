@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI PROJECT MANAGEMENT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <div>
+            <h1>📋 AI PROJECT MANAGEMENT</h1>
+            <p>Kelola pekerjaan dan proyek dengan lebih mudah</p>
+        </div>
+        <button id="themeBtn" class="icon-btn">🌙</button>
+    </header>
+
+    <nav class="navigation">
+        <button class="nav-btn active" data-page="dashboard">🏠 Dashboard</button>
+        <button class="nav-btn" data-page="projects">📁 Proyek</button>
+        <button class="nav-btn" data-page="tasks">✅ Tugas</button>
+        <button class="nav-btn" data-page="team">👥 Tim</button>
+        <button class="nav-btn" data-page="finance">💰 Keuangan</button>
+        <button class="nav-btn" data-page="reports">📊 Laporan</button>
+        <button class="nav-btn" data-page="ai">🤖 AI Assistant</button>
+    </nav>
+
+    <main>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="page active">
+            <div class="page-title">
+                <div>
+                    <h2>Dashboard</h2>
+                    <p>Ringkasan kondisi proyek Anda</p>
+                </div>
+                <button class="primary-btn" onclick="openProjectModal()">＋ Proyek Baru</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>📁</span>
+                    <div>
+                        <small>Total Proyek</small>
+                        <strong id="totalProjects">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <span>📋</span>
+                    <div>
+                        <small>Total Tugas</small>
+                        <strong id="totalTasks">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <span>🔄</span>
+                    <div>
+                        <small>Proyek Berjalan</small>
+                        <strong id="activeProjects">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <span>✅</span>
+                    <div>
+                        <small>Tugas Selesai</small>
+                        <strong id="completedTasks">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <span>⚠️</span>
+                    <div>
+                        <small>Tugas Terlambat</small>
+                        <strong id="overdueTasks">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <span>💰</span>
+                    <div>
+                        <small>Total Pengeluaran</small>
+                        <strong id="totalExpenses">Rp0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>📁 Proyek Terbaru</h3>
+                        <button onclick="showPage('projects')" class="text-btn">Lihat Semua</button>
+                    </div>
+                    <div id="recentProjects" class="list-container"></div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>📋 Tugas Terdekat</h3>
+                        <button onclick="showPage('tasks')" class="text-btn">Lihat Semua</button>
+                    </div>
+                    <div id="upcomingTasks" class="list-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="page">
+            <div class="page-title">
+                <div>
+                    <h2>📁 Proyek</h2>
+                    <p>Kelola semua proyek Anda</p>
+                </div>
+                <button class="primary-btn" onclick="openProjectModal()">＋ Tambah Proyek</button>
+            </div>
+
+            <div class="toolbar">
+                <input id="projectSearch" type="text" placeholder="🔍 Cari proyek..." oninput="renderProjects()">
+                <select id="projectStatusFilter" onchange="renderProjects()">
+                    <option value="">Semua Status</option>
+                    <option value="Belum Mulai">Belum Mulai</option>
+                    <option value="Berjalan">Berjalan</option>
+                    <option value="Selesai">Selesai</option>
+                    <option value="Ditunda">Ditunda</option>
+                </select>
+            </div>
+
+            <div id="projectsList" class="cards-grid"></div>
+        </section>
+
+        <!-- TASKS -->
+        <section id="tasks" class="page">
+            <div class="page-title">
+                <div>
+                    <h2>✅ Tugas</h2>
+                    <p>Kelola pekerjaan dan deadline</p>
+                </div>
+                <button class="primary-btn" onclick="openTaskModal()">＋ Tambah Tugas</button>
+            </div>
+
+            <div class="toolbar">
+                <input id="taskSearch" type="text" placeholder="🔍 Cari tugas..." oninput="renderTasks()">
+                <select id="taskStatusFilter" onchange="renderTasks()">
+                    <option value="">Semua Status</option>
+                    <option value="Belum Mulai">Belum Mulai</option>
+                    <option value="Dikerjakan">Dikerjakan</option>
+                    <option value="Selesai">Selesai</option>
+                </select>
+            </div>
+
+            <div id="tasksList" class="task-list"></div>
+        </section>
+
+        <!-- TEAM -->
+        <section id="team" class="page">
+            <div class="page-title">
+                <div>
+                    <h2>👥 Tim</h2>
+                    <p>Kelola anggota tim proyek</p>
+                </div>
+                <button class="primary-btn" onclick="openTeamModal()">＋ Tambah Anggota</button>
+            </div>
+
+            <div id="teamList" class="cards-grid"></div>
+        </section>
+
+        <!-- FINANCE -->
+        <section id="finance" class="page">
+            <div class="page-title">
+                <div>
+                    <h2>💰 Keuangan Proyek</h2>
+                    <p>Kelola anggaran dan pengeluaran</p>
+                </div>
+                <button class="primary-btn" onclick="openExpenseModal()">＋ Tambah Pengeluaran</button>
+            </div>
+
+            <div class="finance-summary">
+                <div class="finance-card">
+                    <small>Total Anggaran</small>
+                    <strong id="financeBudget">Rp0</strong>
+                </div>
+                <div class="finance-card">
+                    <small>Total Pengeluaran</small>
+                    <strong id="financeExpense">Rp0</strong>
+                </div>
+                <div class="finance-card">
+                    <small>Sisa Anggaran</small>
+                    <strong id="financeRemaining">Rp0</strong>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>💸 Daftar Pengeluaran</h3>
+                </div>
+                <div id="expensesList"></div>
+            </div>
+        </section>
+
+        <!-- REPORT -->
+        <section id="reports" class="page">
+            <div class="page-title">
+                <div>
+                    <h2>📊 Laporan</h2>
+                    <p>Ringkasan perkembangan proyek</p>
+                </div>
+            </div>
+
+            <div class="report-grid">
+                <div class="report-card">
+                    <span>📁</span>
+                    <small>Total Proyek</small>
+                    <strong id="reportProjects">0</strong>
+                </div>
+
+                <div class="report-card">
+                    <span>📋</span>
+                    <small>Total Tugas</small>
+                    <strong id="reportTasks">0</strong>
+                </div>
+
+                <div class="report-card">
+                    <span>✅</span>
+                    <small>Tugas Selesai</small>
+                    <strong id="reportCompleted">0</strong>
+                </div>
+
+                <div class="report-card">
+                    <span>⚠️</span>
+                    <small>Tugas Terlambat</small>
+                    <strong id="reportOverdue">0</strong>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>📈 Progress Proyek</h3>
+                </div>
+                <div id="projectProgressReport"></div>
+            </div>
+        </section>
+
+        <!-- AI -->
+        <section id="ai" class="page">
+            <div class="page-title">
+                <div>
+                    <h2>🤖 AI Project Assistant</h2>
+                    <p>Asisten untuk membantu mengelola proyek</p>
+                </div>
+            </div>
+
+            <div class="ai-box">
+                <div id="aiMessages" class="ai-messages">
+                    <div class="ai-message">
+                        <strong>🤖 AI Assistant</strong>
+                        <p>Halo! Saya siap membantu membaca dan mengelola data proyek Anda.</p>
+                    </div>
+                </div>
+
+                <div class="ai-suggestions">
+                    <button onclick="useAISuggestion('Ringkas kondisi proyek saya')">Ringkas proyek</button>
+                    <button onclick="useAISuggestion('Apa tugas yang belum selesai?')">Tugas belum selesai</button>
+                    <button onclick="useAISuggestion('Apa tugas yang terlambat?')">Tugas terlambat</button>
+                    <button onclick="useAISuggestion('Buatkan rencana pekerjaan minggu ini')">Rencana minggu ini</button>
+                </div>
+
+                <div class="ai-input">
+                    <input id="aiInput" type="text" placeholder="Ketik perintah untuk AI..." onkeydown="if(event.key==='Enter')sendAI()">
+                    <button class="primary-btn" onclick="sendAI()">Kirim</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL PROJECT -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="projectModalTitle">Tambah Proyek</h3>
+                <button onclick="closeModal('projectModal')">✕</button>
+            </div>
+
+            <form id="projectForm">
+                <input type="hidden" id="projectId">
+
+                <label>Nama Proyek</label>
+                <input id="projectName" required>
+
+                <label>Deskripsi</label>
+                <textarea id="projectDescription"></textarea>
+
+                <label>Status</label>
+                <select id="projectStatus">
+                    <option>Belum Mulai</option>
+                    <option>Berjalan</option>
+                    <option>Selesai</option>
+                    <option>Ditunda</option>
+                </select>
+
+                <label>Prioritas</label>
+                <select id="projectPriority">
+                    <option>Rendah</option>
+                    <option selected>Normal</option>
+                    <option>Tinggi</option>
+                </select>
+
+                <label>Deadline</label>
+                <input type="date" id="projectDeadline">
+
+                <label>Anggaran</label>
+                <input type="number" id="projectBudget" min="0" value="0">
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeModal('projectModal')">Batal</button>
+                    <button type="submit" class="primary-btn">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL TASK -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="taskModalTitle">Tambah Tugas</h3>
+                <button onclick="closeModal('taskModal')">✕</button>
+            </div>
+
+            <form id="taskForm">
+                <input type="hidden" id="taskId">
+
+                <label>Nama Tugas</label>
+                <input id="taskName" required>
+
+                <label>Proyek</label>
+                <select id="taskProject"></select>
+
+                <label>Penanggung Jawab</label>
+                <select id="taskAssignee"></select>
+
+                <label>Status</label>
+                <select id="taskStatus">
+                    <option>Belum Mulai</option>
+                    <option>Dikerjakan</option>
+                    <option>Selesai</option>
+                </select>
+
+                <label>Prioritas</label>
+                <select id="taskPriority">
+                    <option>Rendah</option>
+                    <option selected>Normal</option>
+                    <option>Tinggi</option>
+                </select>
+
+                <label>Deadline</label>
+                <input type="date" id="taskDeadline">
+
+                <label>Catatan</label>
+                <textarea id="taskNotes"></textarea>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeModal('taskModal')">Batal</button>
+                    <button type="submit" class="primary-btn">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL TEAM -->
+    <div id="teamModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tambah Anggota Tim</h3>
+                <button onclick="closeModal('teamModal')">✕</button>
+            </div>
+
+            <form id="teamForm">
+                <input type="hidden" id="teamId">
+
+                <label>Nama</label>
+                <input id="teamName" required>
+
+                <label>Jabatan / Peran</label>
+                <input id="teamRole">
+
+                <label>Kontak</label>
+                <input id="teamContact">
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeModal('teamModal')">Batal</button>
+                    <button type="submit" class="primary-btn">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL EXPENSE -->
+    <div id="expenseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tambah Pengeluaran</h3>
+                <button onclick="closeModal('expenseModal')">✕</button>
+            </div>
+
+            <form id="expenseForm">
+                <label>Proyek</label>
+                <select id="expenseProject"></select>
+
+                <label>Keterangan</label>
+                <input id="expenseDescription" required>
+
+                <label>Jumlah</label>
+                <input type="number" id="expenseAmount" min="0" required>
+
+                <label>Tanggal</label>
+                <input type="date" id="expenseDate" required>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeModal('expenseModal')">Batal</button>
+                    <button type="submit" class="primary-btn">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="database.js"></script>
+    <script src="storage.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
